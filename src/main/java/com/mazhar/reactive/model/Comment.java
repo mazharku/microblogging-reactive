@@ -15,9 +15,9 @@ import java.util.UUID;
 @Getter
 @Setter
 public class Comment extends Auditable<UUID> {
+
     private UUID id;
     private String comment;
     private BlogUser commenterName;
     private BlogPost post;
-
 }

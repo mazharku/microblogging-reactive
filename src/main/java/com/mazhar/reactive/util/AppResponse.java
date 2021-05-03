@@ -5,8 +5,8 @@ package com.mazhar.reactive.util;
 
 import java.util.LinkedHashMap;
 
-import static com.mazhar.microblog.util.AppConstant.MESSAGE;
-import static com.mazhar.microblog.util.AppConstant.STATUS;
+import static com.mazhar.reactive.util.AppConstant.MESSAGE;
+import static com.mazhar.reactive.util.AppConstant.STATUS;
 
 /**
  * @author Mazhar Ibna Zahur

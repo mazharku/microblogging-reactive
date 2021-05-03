@@ -18,23 +18,17 @@ import java.util.Date;
  * Mar 22, 2021
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-
 @Getter
 @Setter
 public abstract class Auditable<UUID> {
-	
 
     protected UUID createdBy;
-
     @CreatedDate
     protected Date createdOn;
-
-
     @LastModifiedBy
     protected UUID updatedBy;
-
     @LastModifiedDate
     protected Date updatedOn;
-  
+
 }
 
