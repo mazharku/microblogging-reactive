@@ -3,10 +3,11 @@
  */
 package com.mazhar.reactive.model;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.relational.core.mapping.Table;
 
-import java.util.Set;
 import java.util.UUID;
 
 /**
@@ -15,11 +16,11 @@ import java.util.UUID;
  */
 @Getter
 @Setter
+@Data
+@Table(value = "blog_post")
 public class BlogPost extends Auditable<UUID>{
 	private UUID id;
 	private String title;
 	private String post;
-	private BlogUser user;
-	private Set<Comment> comments;
-	private Set<Vote> votes;
+	private UUID blogUserId;
 }

@@ -16,7 +16,7 @@ import java.util.UUID;
 @Setter
 public class Vote extends Auditable<UUID> {
     private UUID id;
-    private BlogUser voter;
-    private BlogPost post;
+    private UUID voterId;
+    private UUID postId;
     private boolean vote;
 }
