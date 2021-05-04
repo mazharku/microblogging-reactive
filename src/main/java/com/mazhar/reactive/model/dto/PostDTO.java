@@ -17,7 +17,7 @@ import java.util.UUID;
 @Setter
 public class PostDTO {
 
-	private UUID id;
+	private UUID postId;
 	private String userName;
 	private UUID userId;
 	private String title;
