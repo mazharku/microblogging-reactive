@@ -17,6 +17,6 @@ import java.util.UUID;
  *
  */
 public interface UserRespository extends ReactiveCrudRepository<BlogUser, UUID> {
-    @Query(value = "SELECT * FROM {h-schema}blog_user WHERE email=:email")
+    @Query(value = "SELECT * FROM blog_user WHERE email=:email")
     public Mono<BlogUser> getUserByMail(@Param("email") String email);
 }

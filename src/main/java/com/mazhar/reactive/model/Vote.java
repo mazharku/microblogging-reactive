@@ -5,6 +5,7 @@ package com.mazhar.reactive.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.annotation.Id;
 
 import java.util.UUID;
 
@@ -15,7 +16,8 @@ import java.util.UUID;
 @Getter
 @Setter
 public class Vote extends Auditable<UUID> {
-    private UUID id;
+    @Id
+    private UUID voteId;
     private UUID voterId;
     private UUID postId;
     private boolean vote;

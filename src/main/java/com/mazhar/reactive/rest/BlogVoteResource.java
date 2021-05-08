@@ -5,13 +5,10 @@ package com.mazhar.reactive.rest;
 
 
 import com.mazhar.reactive.service.VoteService;
-import com.mazhar.reactive.util.AppResponse;
+import org.reactivestreams.Publisher;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -35,34 +32,19 @@ public class BlogVoteResource {
 	}
 
 	@PostMapping("/{post_id}")
-	ResponseEntity<?> isLikedByCurrentUser(@PathVariable(name = "post_id") UUID postId,@RequestParam(name="user" , required = false) UUID currentUser ) {
-		boolean vote = service.isLikedByCurrentUser(postId, currentUser);
-		return new ResponseEntity<Object>(vote, new HttpHeaders(), HttpStatus.OK);
+	Publisher<?> isLikedByCurrentUser(@PathVariable(name = "post_id") UUID postId,@RequestParam(name="user" , required = false) UUID currentUser ) {
+	 return service.isLikedByCurrentUser(postId, currentUser);
 	}
 
 	@GetMapping("/{post_id}")
-	ResponseEntity<?> getVoteCounts(@PathVariable(name = "post_id") UUID postId) {
-		try {
-			int vote = service.totalNumberOfVoteOfPost(postId);
-			return new ResponseEntity<Object>(vote, new HttpHeaders(), HttpStatus.OK);
-		} catch (Exception e) {
-			log.error(e.getMessage());
-			return new ResponseEntity<Object>(AppResponse.operationFail(e.getMessage()), new HttpHeaders(),
-					HttpStatus.OK);
-		}
-
+	Publisher<?> getVoteCounts(@PathVariable(name = "post_id") UUID postId) {
+	  return service.totalNumberOfVoteOfPost(postId);
 	}
 
 	@PutMapping("/{post_id}")
-	ResponseEntity<?> updateVote(@PathVariable(name = "post_id") UUID postId,
+	Publisher<?> updateVote(@PathVariable(name = "post_id") UUID postId,
 								 @RequestParam(name="user") UUID voterId) {
-		try {
-			return new ResponseEntity<Object>(service.voteAPost(postId, voterId), new HttpHeaders(), HttpStatus.OK);
-		} catch (Exception e) {
-			log.error(e.getMessage());
-			return new ResponseEntity<Object>(AppResponse.operationFail(e.getMessage()), new HttpHeaders(),
-					HttpStatus.OK);
-		}
+		return service.voteAPost(postId, voterId);
 
 	}
 }

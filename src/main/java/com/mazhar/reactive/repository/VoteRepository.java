@@ -19,17 +19,17 @@ import java.util.UUID;
  */
 public interface VoteRepository extends ReactiveCrudRepository<Vote, UUID> {
 	
-	@Query(value = "SELECT COUNT(*) FROM {h-schema}vote WHERE post_id =:post_id AND vote=true")
+	@Query(value = "SELECT COUNT(*) FROM vote WHERE post_id =:post_id AND vote=true")
 	Mono<Long> getVotesOfPost(@Param("post_id") UUID postId);
 	
-	@Query(value = "SELECT * FROM {h-schema}vote WHERE voter_id =:voter_id AND post_id=:post_id")
+	@Query(value = "SELECT * FROM vote WHERE voter_id =:voter_id AND post_id=:post_id")
 	 Mono<Vote> getVoteOfUser(@Param("post_id") UUID post,@Param("voter_id") UUID voter);
 
-	@Query(value = "UPDATE {h-schema}vote  SET vote = :vote  WHERE voter_id = :voter_id AND post_id = :post_id")
+	@Query(value = "UPDATE vote  SET vote = :vote  WHERE voter_id = :voter_id AND post_id = :post_id")
 	Mono<Boolean> updateVote(@Param("vote") boolean vote,@Param("voter_id") UUID voterId, @Param("post_id") UUID postId);
 
 
-	@Query(value = "SELECT * FROM {h-schema}vote WHERE post_id =:post_id AND vote=true")
+	@Query(value = "SELECT * FROM vote WHERE post_id =:post_id AND vote=true")
 	Flux<Vote> getVotesByPost(@Param("post_id") UUID postId);
 
 }

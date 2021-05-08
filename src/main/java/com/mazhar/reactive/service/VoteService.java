@@ -4,14 +4,11 @@
 package com.mazhar.reactive.service;
 
 
-import com.mazhar.reactive.exception.ResourceNotFound;
-import com.mazhar.reactive.model.BlogPost;
-import com.mazhar.reactive.model.BlogUser;
-import com.mazhar.reactive.model.Vote;
 import com.mazhar.reactive.repository.PostRepository;
 import com.mazhar.reactive.repository.UserRespository;
 import com.mazhar.reactive.repository.VoteRepository;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Mono;
 
 import java.util.UUID;
 
@@ -32,16 +29,15 @@ public class VoteService {
         this.postRepository = postRepository;
     }
 
-    public boolean isLikedByCurrentUser(UUID postId, UUID currentUser) {
-       return false;
-        // return repository.getVotesByPost(postId).stream().anyMatch(e -> e.getVoter().getId().equals(currentUser));
+    public Mono<Boolean> isLikedByCurrentUser(UUID postId, UUID currentUser) {
+        return repository.getVotesByPost(postId).any(e -> e.getVoterId().equals(currentUser));
     }
 
-    public int totalNumberOfVoteOfPost(UUID postId) {
-        return 0;
+    public Mono<Long> totalNumberOfVoteOfPost(UUID postId) {
+        return repository.getVotesOfPost(postId);
     }
 
-    public boolean voteAPost(UUID postID, UUID voterID) throws ResourceNotFound {
+    public Mono<Boolean> voteAPost(UUID postID, UUID voterID)  {
        /* BlogUser user = userRepository.findById(voterID).orElseThrow(() -> new ResourceNotFound("No user found"));
         BlogPost post = postRepository.findById(postID).orElseThrow(() -> new ResourceNotFound("No post found"));
         Vote vote = repository.getVoteOfUser(postID, voterID);
@@ -56,7 +52,7 @@ public class VoteService {
             repository.save(vote);
         }
 */
-        return true;
+        return Mono.just(true);
 
     }
 
