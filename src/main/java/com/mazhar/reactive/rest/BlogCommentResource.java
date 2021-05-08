@@ -41,13 +41,8 @@ public class BlogCommentResource {
 	}
 	 
 	@PostMapping("/{post}")
-	Publisher<?> makeAComment(@PathVariable(name = "post") UUID postId, @RequestBody CommentDTO comment) {
-		try {
-			service.commentAPost(comment, postId);
-			return Mono.just(AppResponse.resourceCreated());
-		} catch (Exception e) {
-			log.error(e.getMessage());
-			return Mono.just(AppResponse.operationFail(e.getMessage()));
-		}
+	Publisher<?> makeAComment(@PathVariable(name = "post") UUID postId, @RequestBody Comment comment) {
+		//return 	service.commentAPost(comment, postId);
+		return service.commentAPost(comment, postId).then( Mono.just(AppResponse.resourceCreated()));
 	}
 }

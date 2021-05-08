@@ -5,6 +5,7 @@ package com.mazhar.reactive.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.annotation.Id;
 
 import java.util.UUID;
 
@@ -15,8 +16,8 @@ import java.util.UUID;
 @Getter
 @Setter
 public class Comment extends Auditable<UUID> {
-
-    private UUID id;
+    @Id
+    private UUID commentId;
     private String comment;
     private UUID commenterId;
     private UUID postId;

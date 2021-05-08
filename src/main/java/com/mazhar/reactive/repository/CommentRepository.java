@@ -19,6 +19,6 @@ import java.util.UUID;
 public interface CommentRepository extends ReactiveCrudRepository<Comment, UUID> {
 
 
-	@Query(value = "SELECT * FROM {h-schema}comment WHERE post_id =:post_id")
+	@Query(value = "SELECT * FROM comment WHERE post_id =:post_id")
 	public Flux<Comment> getCommentsByPost(@Param("post_id") UUID postId);
 }

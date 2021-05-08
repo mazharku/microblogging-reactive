@@ -33,27 +33,15 @@ public class CommentService {
 		this.modelMapper = modelMapper;
 	}
 
-	public Mono<Boolean> commentAPost(CommentDTO dto, UUID postId) throws ResourceNotFound {
-		Comment comment = modelMapper.map(dto, Comment.class);
-	    Mono.just(postId).
-				map(repository::findById).
-				handle((post, sink)->{
-					if(!isValidPost(post)) {
-						sink.error(new ResourceNotFound("jfjjfkf"));
-					}
-				});
-
+	public Mono<Comment> commentAPost(Comment comment, UUID postId) {
 	    comment.setPostId(postId);
-		repository.save(comment);
-		return Mono.just(true);
+		return  repository.save(comment);
 	}
 
-	private boolean isValidPost(Mono<Comment> post) {
-		return true;
-	}
 
-	public Flux<Comment> getAllComments(UUID postId) {
-		return repository.getCommentsByPost(postId);
+
+	public Flux<CommentDTO> getAllComments(UUID postId) {
+		return repository.getCommentsByPost(postId).map(e -> modelMapper.map(e, CommentDTO.class));
 	}
 
 }
