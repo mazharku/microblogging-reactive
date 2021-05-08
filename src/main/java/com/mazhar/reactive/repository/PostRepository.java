@@ -10,6 +10,6 @@ import java.util.UUID;
 
 public interface PostRepository extends ReactiveCrudRepository<BlogPost, UUID> {
 
-    @Query(value = "SELECT * FROM {h-schema}blog_post WHERE blog_user_id =:userid")
+    @Query(value = "SELECT * FROM blog_post WHERE blog_user_id =:userid")
     Flux<BlogPost> getPostByUser(@Param("userid") UUID userid);
 }

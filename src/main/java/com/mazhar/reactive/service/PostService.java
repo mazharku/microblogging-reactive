@@ -1,6 +1,5 @@
 package com.mazhar.reactive.service;
 
-import com.mazhar.reactive.exception.ResourceNotFound;
 import com.mazhar.reactive.model.BlogPost;
 import com.mazhar.reactive.model.dto.PostDTO;
 import com.mazhar.reactive.repository.PostRepository;
@@ -25,27 +24,19 @@ public class PostService {
         return repository.findAll().flatMap(e -> Mono.just(modelMapper.map(e, PostDTO.class)));
     }
 
-    public Mono<PostDTO> getPostById(UUID id) throws ResourceNotFound{
-        try {
-        return repository.findById(id).flatMap(e -> {
-            if(e==null) {
-                return  Mono.error(new ResourceNotFound("hghg"));
-            }
-            return  Mono.just(modelMapper.map(e, PostDTO.class));
-        });
-        } catch (IllegalArgumentException ex) {
-            String res = ex.toString();
-            return Mono.empty();
-        }
+    public Mono<?> getPostById(UUID id) {
+            return repository.findById(id).flatMap(e -> Mono.just(modelMapper.map(e, PostDTO.class)));
     }
 
-    public Mono<Void> createPost(BlogPost post){
-        repository.save(post);
-        return Mono.empty();
+    public Mono<BlogPost> createPost(BlogPost post){
+        return repository.save(post);
     }
 
     public Flux<PostDTO> getPostsOfUser(UUID userId) {
         return repository.getPostByUser(userId).flatMap(e -> Mono.just(modelMapper.map(e, PostDTO.class)));
+    }
+    public Mono<Void> deletePost(UUID postId) {
+       return repository.deleteById(postId);
     }
 
 }
