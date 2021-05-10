@@ -4,6 +4,10 @@
 package com.mazhar.reactive.service;
 
 
+import com.mazhar.reactive.exception.ResourceNotFound;
+import com.mazhar.reactive.model.BlogPost;
+import com.mazhar.reactive.model.BlogUser;
+import com.mazhar.reactive.model.Vote;
 import com.mazhar.reactive.repository.PostRepository;
 import com.mazhar.reactive.repository.UserRespository;
 import com.mazhar.reactive.repository.VoteRepository;
@@ -38,22 +42,19 @@ public class VoteService {
     }
 
     public Mono<Boolean> voteAPost(UUID postID, UUID voterID)  {
-       /* BlogUser user = userRepository.findById(voterID).orElseThrow(() -> new ResourceNotFound("No user found"));
-        BlogPost post = postRepository.findById(postID).orElseThrow(() -> new ResourceNotFound("No post found"));
-        Vote vote = repository.getVoteOfUser(postID, voterID);
-        if (vote == null) {
-            Vote v = new Vote();
-            v.setPost(post);
-            v.setVoter(user);
-            v.setVote(true);
-            repository.save(v);
-        } else {
-            vote.setVote(!vote.isVote());
-            repository.save(vote);
-        }
-*/
-        return Mono.just(true);
+       return repository.getVoteOfUser(postID, voterID).switchIfEmpty(saveVote(postID,voterID)).flatMap(e -> {
+           e.setVote(!e.isVote());
+           repository.save(e).subscribe();
+           return Mono.just(true);
+       });
 
+    }
+    private Mono<Vote> saveVote(UUID postId, UUID voterId) {
+        Vote v = new Vote();
+        v.setPostId(postId);
+        v.setVoterId(voterId);
+        v.setVote(true);
+        return repository.save(v);
     }
 
 }
