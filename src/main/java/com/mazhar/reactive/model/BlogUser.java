@@ -18,9 +18,9 @@ import java.util.UUID;
 @Setter
 public class BlogUser extends Auditable<UUID> {
 	@Id
-	private UUID id;
+	private UUID blogUserId;
 	private String email;
-	private String userName;
+	private String blogUserName;
 	private String password;
 	private String gender;
 	private Date dob;
