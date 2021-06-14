@@ -1,6 +1,6 @@
 # Microblogging Application in Reactive Approach
 
-This is a reactive approach spring boot project. For reactive approach i use project reactor , r2Dbc and webflux
+This is a sample project for spring webflux. For reactive approach i use project reactor , r2Dbc, postgre sql and webflux
 
 ---
 ### What I Used 
