@@ -6,7 +6,7 @@ This is a reactive approach spring boot project. For reactive approach i use pro
 ### What I Used 
 * java 11 => Open JDK
 * postgres 10
-* spring 2.4.5
+* spring boot 2.4.5
 
 ### How To Run 
-to view project endponts  please navigate to [Swagger-link](http://localhost:8085/swagger-ui/)
+to view project endponts  please navigate to [feel-Reactive](https://microblog-reactive.herokuapp.com)
