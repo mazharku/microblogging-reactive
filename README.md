@@ -4,7 +4,7 @@ This is a sample project for spring webflux. For reactive approach i use project
 
 ---
 ### What I Used 
-* java 11 => Open JDK
+* java 11 
 * postgres 10
 * spring boot 2.4.5
 
