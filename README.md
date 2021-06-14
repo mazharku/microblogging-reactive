@@ -9,4 +9,4 @@ This is a reactive approach spring boot project. For reactive approach i use pro
 * spring boot 2.4.5
 
 ### How To Run 
-to view project endponts  please navigate to [feel-Reactive](https://microblog-reactive.herokuapp.com)
+to feel reactive you can navigate to [go](https://microblog-reactive.herokuapp.com)
