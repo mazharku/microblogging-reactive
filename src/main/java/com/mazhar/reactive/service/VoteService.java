@@ -4,9 +4,6 @@
 package com.mazhar.reactive.service;
 
 
-import com.mazhar.reactive.exception.ResourceNotFound;
-import com.mazhar.reactive.model.BlogPost;
-import com.mazhar.reactive.model.BlogUser;
 import com.mazhar.reactive.model.Vote;
 import com.mazhar.reactive.repository.PostRepository;
 import com.mazhar.reactive.repository.UserRespository;
@@ -44,8 +41,7 @@ public class VoteService {
     public Mono<Boolean> voteAPost(UUID postID, UUID voterID)  {
        return repository.getVoteOfUser(postID, voterID).switchIfEmpty(saveVote(postID,voterID)).flatMap(e -> {
            e.setVote(!e.isVote());
-           repository.save(e).subscribe();
-           return Mono.just(true);
+           return repository.save(e).then(Mono.just(true));
        });
 
     }
