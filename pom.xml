@@ -15,6 +15,7 @@
 	<description>microblogging API in reactive approach </description>
 	<properties>
 		<java.version>11</java.version>
+		<org.mapstruct.version>1.4.2.Final</org.mapstruct.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -35,6 +36,11 @@
 			<groupId>org.modelmapper.extensions</groupId>
 			<artifactId>modelmapper-spring</artifactId>
 			<version>2.3.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mapstruct</groupId>
+			<artifactId>mapstruct</artifactId>
+			<version>${org.mapstruct.version}</version>
 		</dependency>
 
 		<dependency>
@@ -72,16 +78,30 @@
 	<build>
 		<plugins>
 			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-				<version>${project.parent.version}</version>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
-					<excludes>
-						<exclude>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+					<annotationProcessorPaths>
+						<path>
 							<groupId>org.projectlombok</groupId>
 							<artifactId>lombok</artifactId>
-						</exclude>
-					</excludes>
+                            <version>1.18.16</version>
+						</path>
+
+						<path>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok-mapstruct-binding</artifactId>
+							<version>0.2.0</version>
+						</path>
+						<!-- Mapstruct should follow the lombok path(s) -->
+						<path>
+							<groupId>org.mapstruct</groupId>
+							<artifactId>mapstruct-processor</artifactId>
+							<version>${org.mapstruct.version}</version>
+						</path>
+					</annotationProcessorPaths>
 				</configuration>
 			</plugin>
 		</plugins>
